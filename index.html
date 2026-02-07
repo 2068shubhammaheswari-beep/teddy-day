@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Teddy Day, Farhana 🧸</title>
+
+<style>
+:root{
+  --pink:#f6c1cc;
+  --cream:#fff6ec;
+  --brown:#7a4a2e;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:"Segoe UI",system-ui;
+}
+
+body{
+  margin:0;
+  background:linear-gradient(180deg,var(--cream),#fdeef2);
+  color:var(--brown);
+  overflow-x:hidden;
+}
+
+.container{
+  max-width:520px;
+  margin:auto;
+  padding:24px 18px 90px;
+  text-align:center;
+  animation:fade 1.2s ease;
+}
+
+h1{
+  font-size:1.9rem;
+  margin-bottom:10px;
+}
+
+.teddy{
+  font-size:5rem;
+  margin:20px 0;
+  animation:float 3s ease-in-out infinite;
+}
+
+.subtitle{
+  font-size:.95rem;
+  opacity:.85;
+  margin-bottom:28px;
+}
+
+.card{
+  background:rgba(255,255,255,.78);
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 12px 30px rgba(0,0,0,.08);
+  text-align:left;
+}
+
+.card p{
+  font-size:.95rem;
+  line-height:1.65;
+  margin-bottom:14px;
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(25px);
+  transition:all 1s ease;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.final-line{
+  margin-top:18px;
+  font-size:.95rem;
+  text-align:center;
+}
+
+button{
+  background:var(--pink);
+  border:none;
+  border-radius:999px;
+  padding:12px 24px;
+  font-size:.95rem;
+  cursor:pointer;
+  margin-top:14px;
+  box-shadow:0 6px 16px rgba(0,0,0,.15);
+  transition:.25s;
+}
+
+button:hover{
+  transform:scale(1.06);
+}
+
+.message{
+  display:none;
+  margin-top:12px;
+  animation:fade .6s ease;
+  font-size:.9rem;
+}
+
+footer{
+  margin-top:40px;
+  font-size:.85rem;
+  opacity:.9;
+}
+
+.heart{
+  position:fixed;
+  bottom:-20px;
+  animation:rise 6s linear infinite;
+  opacity:.75;
+  pointer-events:none;
+}
+
+@keyframes rise{
+  to{transform:translateY(-120vh);opacity:0}
+}
+@keyframes fade{
+  from{opacity:0}
+  to{opacity:1}
+}
+@keyframes float{
+  50%{transform:translateY(-10px)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Happy Teddy Day, Farhana 🧸</h1>
+
+  <div class="teddy">🧸</div>
+
+  <div class="subtitle">
+    A small surprise from someone who would rather be hugging you in person
+  </div>
+
+  <div class="card reveal">
+    <p>Hey my Teddy,</p>
+
+    <p>
+      I know today is supposed to come with a soft teddy bear in my arms,
+      and yeah… it hurts a little that I can’t give you that in person.
+      Because if I were there, I wouldn’t just give it to you —
+      I’d pull you close and make sure you stayed right where you belong.
+    </p>
+
+    <p>
+      So instead of a teddy, here’s what you get:
+      me trying to be your comfort,
+      your calm,
+      the place you mentally lean into when the day feels heavy.
+      I want to be the one you think of when you need warmth,
+      reassurance,
+      or just a quiet smile.
+    </p>
+
+    <p>
+      Even from miles away, I’m holding you.
+      In the way I care,
+      in the way I pay attention,
+      in the way I imagine you resting your head against me after a long day.
+      Distance hasn’t made me feel less close to you —
+      it’s only made me more aware of how much I want you here.
+    </p>
+
+    <p>
+      I want to be the reason you smile at your phone.
+      The reason you feel safe.
+      The reason you feel wanted —
+      because you are, Teddy.
+      Completely.
+    </p>
+
+    <p>
+      And if I were your teddy?
+      I’d steal your sleep,
+      keep you warm all night,
+      and remind you exactly whose arms you should be in 😌
+    </p>
+
+    <p class="final-line">
+      <b>Read this last:</b><br>
+      No matter where you are right now… you’re mine to care for.
+    </p>
+  </div>
+
+  <button onclick="hug()">Tap for a Teddy Hug 🤍</button>
+  <div class="message" id="hugMsg">
+    Hug received 🧸💕 Careful… I’m not letting go that easily.
+  </div>
+
+  <button onclick="secret()">Psst… tap for a secret 🫣</button>
+  <div class="message" id="secretMsg">
+    This teddy is jealous because I get to pull you closer in real life.
+  </div>
+
+  <button onclick="toggleHeartbeat()">🫀 Feel my heartbeat</button>
+
+  <footer>— Yours always, Shubham 🤍</footer>
+</div>
+
+<script>
+/* BUTTONS */
+function hug(){
+  document.getElementById("hugMsg").style.display="block";
+}
+function secret(){
+  document.getElementById("secretMsg").style.display="block";
+}
+
+/* HEARTBEAT SOUND */
+let ctx,osc,gain,interval;
+function toggleHeartbeat(){
+  if(!ctx){
+    ctx=new (window.AudioContext||window.webkitAudioContext)();
+    gain=ctx.createGain();
+    gain.gain.value=0.06;
+    gain.connect(ctx.destination);
+
+    interval=setInterval(()=>{
+      osc=ctx.createOscillator();
+      osc.type="sine";
+      osc.frequency.value=120;
+      osc.connect(gain);
+      osc.start();
+      osc.stop(ctx.currentTime+0.15);
+    },700);
+  }else{
+    clearInterval(interval);
+    ctx.close();
+    ctx=null;
+  }
+}
+
+/* SCROLL REVEAL */
+window.addEventListener("scroll",()=>{
+  const el=document.querySelector(".reveal");
+  if(!el) return;
+  const trigger=window.innerHeight*0.85;
+  if(el.getBoundingClientRect().top<trigger){
+    el.classList.add("active");
+  }
+});
+
+/* FLOATING HEARTS */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent="🤍";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},850);
+</script>
+
+</body>
+</html>
